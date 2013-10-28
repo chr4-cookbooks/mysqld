@@ -24,9 +24,11 @@ case node['platform_family']
 when 'debian'
   default['mysqld']['my.cnf_path'] = '/etc/mysql/my.cnf'
   default['mysqld']['service_name'] = 'mysql'
+  default['mysqld']['includedir'] = true
 when 'rhel'
   default['mysqld']['my.cnf_path'] = '/etc/my.cnf'
   default['mysqld']['service_name'] = 'mysqld'
+  default['mysqld']['includedir'] = false
 end
 
 default['mysqld']['my.cnf']['mysqld']['bind-address'] = '127.0.0.1'
