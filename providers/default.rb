@@ -22,9 +22,12 @@ action :create do
   # Install required packages
   Array(new_resource.packages).each { |pkg| package pkg }
 
+  # deep_merge configuration with default
+  config = Chef::Mixin::DeepMerge.deep_merge!(node['mysqld']['my.cnf'], new_resource.my_cnf)
+
   # Generate my.cnf from attributes
   my_cnf = ''
-  node['mysqld']['my.cnf'].merge(new_resource.my_cnf).each do |category, config|
+  config.each do |category, config|
     my_cnf << "[#{category}]\n"
     config.each { |key, value| my_cnf << "#{key} = #{value}\n" }
     my_cnf << "\n"
