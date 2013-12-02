@@ -44,6 +44,7 @@ action :create do
 
   service new_resource.service_name do
     subscribes :restart, 'template[my.cnf]'
-    action   [ :enable, :start ]
+    action     [ :enable, :start ]
+    not_if     { new_resource.service_name.empty? }
   end
 end
