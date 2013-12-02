@@ -36,6 +36,7 @@ action :create do
   r = template 'my.cnf' do
     path      new_resource.my_cnf_path
     mode      00644
+    cookbook  'mysqld'
     source    'my.cnf.erb'
     variables config: my_cnf
   end
