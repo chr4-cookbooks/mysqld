@@ -27,9 +27,9 @@ action :create do
 
   # Generate my.cnf from attributes
   my_cnf = ''
-  config.each do |category, config|
+  config.each do |category, conf|
     my_cnf << "[#{category}]\n"
-    config.each { |key, value| my_cnf << "#{key} = #{value}\n" }
+    conf.each { |key, value| my_cnf << "#{key} = #{value}\n" }
     my_cnf << "\n"
   end
 
