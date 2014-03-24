@@ -5,8 +5,8 @@ describe 'mysqld::default' do
   let(:debian) { ChefSpec::Runner.new(platform: 'ubuntu', version: '12.04', step_into: ['default']).converge(described_recipe) }
 
   it 'should use the correct mysql server package' do
-    expect(rhel.node['mysqld']['packages']).to eq(['mysql-server'])
-    expect(debian.node['mysqld']['packages']).to eq(['mysql-server'])
+    expect(rhel.node['mysqld']['packages']).to eq(%w{mysql-server})
+    expect(debian.node['mysqld']['packages']).to eq(%w{mysql-server})
   end
 
   it 'should use distribution specific my.cnf path' do
@@ -14,7 +14,7 @@ describe 'mysqld::default' do
     expect(debian.node['mysqld']['my.cnf_path']).to eq('/etc/mysql/my.cnf')
   end
 
-  it 'shoudl use distribution specific service name' do
+  it 'should use distribution specific service name' do
     expect(rhel.node['mysqld']['service_name']).to eq('mysqld')
     expect(debian.node['mysqld']['service_name']).to eq('mysql')
   end
