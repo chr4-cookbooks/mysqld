@@ -1,8 +1,13 @@
 require_relative '../spec_helper'
 
 describe 'mysqld::default' do
-  let(:rhel) { ChefSpec::Runner.new(platform: 'centos', version: '6.5', step_into: ['default']).converge(described_recipe) }
-  let(:debian) { ChefSpec::Runner.new(platform: 'ubuntu', version: '12.04', step_into: ['default']).converge(described_recipe) }
+  let(:rhel) do
+    ChefSpec::Runner.new(platform: 'centos', version: '6.5').converge(described_recipe)
+  end
+
+  let(:debian) do
+    ChefSpec::Runner.new(platform: 'ubuntu', version: '12.04').converge(described_recipe)
+  end
 
   it 'should use the correct mysql server package' do
     expect(rhel.node['mysqld']['packages']).to eq(%w{mysql-server})
