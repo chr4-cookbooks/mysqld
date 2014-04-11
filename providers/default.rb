@@ -29,7 +29,10 @@ action :create do
   my_cnf = ''
   config.each do |category, conf|
     my_cnf << "[#{category}]\n"
-    conf.each { |key, value| my_cnf << "#{key} = #{value}\n" }
+    conf.each do |key, value|
+      next unless value
+      my_cnf << "#{key} = #{value}\n"
+    end
     my_cnf << "\n"
   end
 
