@@ -3,6 +3,11 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+0.3.0
+-----
+
+- [Chris Aumann] - Add support to remove configuration options set by default attributes
+
 0.2.0
 -----
 - [Chris Aumann] - Do not manage service\_name, when service\_name is empty
