@@ -52,6 +52,13 @@ This will expand to the following in your config file (leaving all other setting
   bind-address = 0.0.0.0
 ```
 
+To remove a default option, you can pass `false` or `nil` as the value
+
+```ruby
+# Remove deprecated innodb option
+default['mysqld']['my.cnf']['mysqld']['innodb_additional_mem_pool_size'] = false
+```
+
 As the configuration file is constructed from the config hash, every my.cnf configuration option is supported.
 
 
