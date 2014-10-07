@@ -19,9 +19,9 @@
 #
 
 # Default packages to install
-default['mysqld']['mysql_packages'] = %w{mysql-server}
-default['mysqld']['mariadb_packages'] = %w{mariadb-server}
-default['mysqld']['mariadb_galera_packages'] = %w{mariadb-galera-server}
+default['mysqld']['mysql_packages'] = %w(mysql-server)
+default['mysqld']['mariadb_packages'] = %w(mariadb-server)
+default['mysqld']['mariadb_galera_packages'] = %w(mariadb-galera-server)
 
 # MariaDB repository options (Note: 10.1 has no support for galera (yet))
 default['mysqld']['repository']['version'] = '10.0'

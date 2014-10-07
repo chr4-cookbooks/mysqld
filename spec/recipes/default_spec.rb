@@ -10,8 +10,8 @@ describe 'mysqld::default' do
   end
 
   it 'should use the correct mysql server package' do
-    expect(rhel.node['mysqld']['packages']).to eq(%w{mysql-server})
-    expect(debian.node['mysqld']['packages']).to eq(%w{mysql-server})
+    expect(rhel.node['mysqld']['packages']).to eq(%w(mysql-server))
+    expect(debian.node['mysqld']['packages']).to eq(%w(mysql-server))
   end
 
   it 'should use distribution specific my.cnf path' do
