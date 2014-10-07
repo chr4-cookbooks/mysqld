@@ -27,6 +27,18 @@ default['mysqld']['mariadb_galera_packages'] = %w{mariadb-galera-server}
 default['mysqld']['repository']['version'] = '10.0'
 default['mysqld']['repository']['mirror'] = 'http://ftp.hosteurope.de/mirror/mariadb.org/repo'
 
+# Figure out architecture and major platform version for yum repositories
+default['mysqld']['repository']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? 'amd64' : 'x86'
+
+case node['platform']
+when 'redhat'
+  default['mysqld']['repository']['platform'] = "rhel#{node['platform_version'].to_i}"
+when 'centos'
+  default['mysqld']['repository']['platform'] = "centos#{node['platform_version'].to_i}"
+when 'fedora'
+  default['mysqld']['repository']['platform'] = "fedora#{node['platform_version'].to_i}"
+end
+
 case node['platform_family']
 when 'debian'
   default['mysqld']['my.cnf_path'] = '/etc/mysql/my.cnf'
