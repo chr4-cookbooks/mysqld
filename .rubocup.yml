@@ -1,5 +1,0 @@
-LineLength:
-  Max: 100
-
-HashSyntax:
-  EnforcedStyle: ruby19
