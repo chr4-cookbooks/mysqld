@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: mysqld
-# Recipe:: default
+# Recipe: mysql_install
 #
-# Copyright 2013, Chris Aumann
+# Copyright 2014, Chris Aumann
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,5 +18,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-include_recipe 'mysqld::mysql_install'
-include_recipe 'mysqld::configure'
+# Install MySQL packages
+Array(node['mysqld']['packages']).each { |pkg| package pkg }

@@ -19,9 +19,6 @@
 #
 
 action :create do
-  # Install required packages
-  Array(new_resource.packages).each { |pkg| package pkg }
-
   # deep_merge configuration with default
   config = Chef::Mixin::DeepMerge.deep_merge!(node['mysqld']['my.cnf'], new_resource.my_cnf)
 

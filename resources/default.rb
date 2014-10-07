@@ -22,7 +22,6 @@ actions        :create
 default_action :create
 
 attribute :name,         kind_of: String, name_attribute: true
-attribute :packages,     kind_of: Array,  default: node['mysqld']['packages']
 attribute :my_cnf,       kind_of: Hash,   default: {}
 attribute :my_cnf_path,  kind_of: String, default: node['mysqld']['my.cnf_path']
 attribute :service_name, kind_of: String, default: node['mysqld']['service_name']
