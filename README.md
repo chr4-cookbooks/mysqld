@@ -1,15 +1,21 @@
 # mysqld Cookbook
 
 Manage your mysqld servers with this cookbook.
-Unlike the official [opscode mysql cookbook](https://github.com/opscode-cookbooks/mysql), it doesn't mess with the default mysql configuration. If you do not specify anything explicitly, the defaults of your distribution will be used.
-(At least if I do not mess up - Check the [default attributes](https://github.com/chr4/chef-mysqld/blob/master/attributes/defaults.rb), if unsure (and file a pull request if you need to correct anything))
+Unlike the official [opscode mysql cookbook](https://github.com/opscode-cookbooks/mysql),
+it doesn't mess with the default mysql configuration. If you do not specify anything explicitly, the
+defaults of your distribution will be used.
+(At least if I do not mess up - Check the
+[default attributes](https://github.com/chr4/chef-mysqld/blob/master/attributes/defaults.rb),
+if unsure (and file a pull request if you need to correct anything))
 
 Features
 
 * Defaults to OS settings unless explicitly specified otherwise
 * Supports **all** my.cnf settings
 
-Currently tested on Ubuntu, should work on RHEL and Debian as well. [Contributions](https://github.com/chr4/chef-mysqld#contributing) to support other systems are very welcome!
+Currently tested on Ubuntu, should work on RHEL and Debian as well.
+[Contributions](https://github.com/chr4/chef-mysqld#contributing) to support other systems are very
+welcome!
 
 ## Requirements
 
@@ -27,8 +33,10 @@ Consider using the provides LWRPs (see below)
 
 If you do not specify anything, the defaults of your os will be used.
 
-This recipe supports **every** setting in the my.cnf.
-All your settings will be merged with the systems default, and then written to the my.cnf config file. The packages to install, the path to my.cnf as well as the name of the service are set automatically, and can be overwritten using the following attributes:
+This recipe supports **every** setting in the my.cnf.  All your settings will be merged with the
+systems default, and then written to the my.cnf config file. The packages to install, the path to
+my.cnf as well as the name of the service are set automatically, and can be overwritten using the
+following attributes:
 
 
 ```ruby
@@ -59,14 +67,16 @@ To remove a default option, you can pass `false` or `nil` as the value
 default['mysqld']['my.cnf']['mysqld']['innodb_additional_mem_pool_size'] = false
 ```
 
-As the configuration file is constructed from the config hash, every my.cnf configuration option is supported.
+As the configuration file is constructed from the config hash, every my.cnf configuration option is
+supported.
 
 
 ## Recipes
 
 ### default
 
-Installs mysql server, and configures it according to the attributes. If no attributes are given, it sticks with the systems default
+Installs mysql server, and configures it according to the attributes. If no attributes are given, it
+sticks with the systems default
 
 
 # Contributing
