@@ -46,6 +46,11 @@ action :create do
   new_resource.updated_by_last_action(true) if r.updated_by_last_action?
 
   service new_resource.service_name do
+    # Use --wsrep-new-cluster if this is an initial galera startup
+    if node['mysqld']['galera_setup_initial'] == true
+      start_command "service #{new_resource.service_name} start --wsrep-new-cluster --wsrep_cluster_address=gcomm://"
+    end
+
     subscribes :restart, 'template[my.cnf]'
     action     [:enable, :start]
     not_if     { new_resource.service_name.empty? }
