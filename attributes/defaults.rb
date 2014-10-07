@@ -50,6 +50,23 @@ when 'rhel'
   default['mysqld']['includedir'] = false
 end
 
+# Root password, not set if nil
+default['mysqld']['root_password'] = nil
+
+# Default authentication method
+if node['platform_family'] == 'debian'
+  # Use defaults-file on Debian
+  default['mysqld']['auth'] = '--defaults-file=/etc/mysql/debian.cnf'
+else
+  if node['mysqld']['root_password']
+    # Use root with password, if password was set in the attribute
+    default['mysqld']['auth'] = "--user=root --password=#{node['mysqld']['root_password']}"
+  else
+    # Use root without a password
+    default['mysqld']['auth'] = '--user=root'
+  end
+end
+
 default['mysqld']['my.cnf']['mysqld']['bind-address'] = '127.0.0.1'
 default['mysqld']['my.cnf']['mysqld']['port'] = 3306
 default['mysqld']['my.cnf']['mysqld']['user'] = 'mysql'
