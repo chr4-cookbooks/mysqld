@@ -3,17 +3,22 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+1.0.0
+-----
+
+-
+
 0.3.0
 -----
 
-- [Chris Aumann] - Add support to remove configuration options set by default attributes
+- Add support to remove configuration options set by default attributes
 
 0.2.0
 -----
-- [Chris Aumann] - Do not manage service\_name, when service\_name is empty
-                 - Fixes an issue with the template when the LWRP was called from another cookbook
-                 - Use deep_merge to merge my.cnf hashes
+- Do not manage `service_name`, when `service_name` is empty
+- Fixes an issue with the template when the LWRP was called from another cookbook
+- Use `deep_merge` to merge my.cnf hashes
 
 0.1.0
 -----
-- [Chris Aumann] - Initial release of mysqld
+- Initial release of mysqld
