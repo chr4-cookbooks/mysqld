@@ -26,3 +26,4 @@ attribute :my_cnf,       kind_of: Hash,   default: {}
 attribute :my_cnf_path,  kind_of: String, default: node['mysqld']['my.cnf_path']
 attribute :service_name, kind_of: String, default: node['mysqld']['service_name']
 attribute :includedir,   kind_of: [TrueClass, FalseClass], default: node['mysqld']['includedir']
+attribute :galera_init,  kind_of: [TrueClass, FalseClass], default: false

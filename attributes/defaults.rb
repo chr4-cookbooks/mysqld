@@ -67,10 +67,6 @@ else
   end
 end
 
-# Set temporarily to true, if you're just setting up a galera cluster.
-# This starts the mysql instance using --wsrep-new-cluster
-default['mysqld']['galera_setup_initial'] = false
-
 default['mysqld']['my.cnf']['mysqld']['bind-address'] = '127.0.0.1'
 default['mysqld']['my.cnf']['mysqld']['port'] = 3306
 default['mysqld']['my.cnf']['mysqld']['user'] = 'mysql'

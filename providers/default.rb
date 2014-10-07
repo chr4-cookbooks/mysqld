@@ -47,7 +47,7 @@ action :create do
 
   service new_resource.service_name do
     # Use --wsrep-new-cluster if this is an initial galera startup
-    if node['mysqld']['galera_setup_initial'] == true
+    if new_resource.galera_init
       start_command "service #{new_resource.service_name} start --wsrep-new-cluster --wsrep_cluster_address=gcomm://"
     end
 
