@@ -18,7 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-default['mysqld']['packages'] = %w{mysql-server}
+# Default packages to install
+default['mysqld']['mysql_packages'] = %w{mysql-server}
 
 case node['platform_family']
 when 'debian'

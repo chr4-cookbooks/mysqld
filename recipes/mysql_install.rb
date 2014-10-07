@@ -19,4 +19,4 @@
 #
 
 # Install MySQL packages
-Array(node['mysqld']['packages']).each { |pkg| package pkg }
+Array(node['mysqld']['mysql_packages']).each { |pkg| package pkg }

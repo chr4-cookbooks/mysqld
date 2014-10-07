@@ -42,7 +42,7 @@ following attributes:
 ```ruby
 node['mysqld']['my.cnf_path']
 node['mysqld']['service_name']
-node['mysqld']['packages']
+node['mysqld']['mysql_packages']   # When using mysql_install recipe
 ```
 
 The configuration is stored in the ```node['mysqld']['my.cnf']``` hash, and can be adapted like so
