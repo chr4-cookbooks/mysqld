@@ -6,7 +6,14 @@ This file is used to list changes made in each version of the mysqld cookbook.
 1.0.0
 -----
 
--
+- Add support for mariadb
+- Add support for mariadb-galera
+- Automatically set admin passwords if attribute is given (incl. modifying `/etc/mysql/debian.cnf`
+  accordingly, if required)
+
+Compatibility changes:
+
+- Rename `node['mysqld']['packages']` attribute to `node['mysqld']['mysql_packages']`
 
 0.3.0
 -----
