@@ -42,7 +42,9 @@ following attributes:
 ```ruby
 node['mysqld']['my.cnf_path']
 node['mysqld']['service_name']
-node['mysqld']['mysql_packages']   # When using mysql_install recipe
+node['mysqld']['mysql_packages']          # When using mysql_install recipe
+node['mysqld']['mariadb_packages']        # When using mariadb_install recipe
+node['mysqld']['mariadb_galera_packages'] # When using mariadb_galera_install recipe
 ```
 
 The configuration is stored in the ```node['mysqld']['my.cnf']``` hash, and can be adapted like so
@@ -71,12 +73,109 @@ As the configuration file is constructed from the config hash, every my.cnf conf
 supported.
 
 
+```ruby
+node['mysqld']['root_password'] = 'yourpass'
+```
+
+
+
 ## Recipes
 
 ### default
 
-Installs mysql server, and configures it according to the attributes. If no attributes are given, it
-sticks with the systems default
+- Setup official MariaDB repository
+- Install MariaDB server
+- Configure MariaDB server according to the attributes. If no attributes are given, stick with the
+  systems default
+
+
+### mariadb\_repository
+
+Runs `mariadb_apt_repository` or `mariadb_yum_repository` recipe according to your platform
+
+### mariadb\_apt\_repository
+
+Sets up official MariaDB repository to install packages from.
+Configure it using the following attributes
+
+```ruby
+node['mysqld']['repository']['version'] # Defaults to '10.1'
+node['mysqld']['repository']['mirror']  # Defaults to HostEurope mirror
+```
+
+### mariadb\_yum\_repository
+
+Sets up official MariaDB repository to install packages from.
+Configure it using the following attributes
+
+```ruby
+node['mysqld']['repository']['version'] # Defaults to '10.1'
+node['mysqld']['repository']['mirror']  # Defaults to HostEurope mirror
+```
+
+### mariadb\_install
+
+Install mariadb packages (according to attributes, defaults to `mariadb-server`)
+
+### mysql\_install
+
+Install mysql packages (according to attributes, defaults to `mysql-server`)
+
+### configure
+
+Configure mysql according to attributes. Sets the databases root account (resp. debian-sys-maint on
+Debian/Ubuntu systems) to use the password in `node['mysqld']['root_password']`, if the attribute is
+set.
+
+### mariadb\_galera\_init
+
+Run `mariadb\_repository` and `mariadb\_galera\_install` recipes, then configure as the `configure`
+recipe would do, but start mariadb with `--wsrep-new-cluster --wsrep\_cluster\_address=gcomm://` to
+initialize a new Galera cluster.
+
+Use this if you want to setup a new Galera cluster, and run it on your first node once:
+
+```bash
+$ sudo chef-client --once -o 'recipe[mysqld::mariadb_galera_init]'
+```
+
+Once you connected the other nodes using the regular recipes, re-run chef-client as you did on the
+other servers.
+
+*Note: If you use a wrapper cookbook to configure your instances, attributes might not be available
+when running the recipe with `-o recipe[]`. Create a mariadb_galera_init recipe in your wrapper
+cookbook, calling this recipe if you have trouble.*
+
+
+## Providers
+
+### mysqld
+
+You can configure your database also using the `mysqld` provider:
+
+
+```ruby
+include_recipe 'mysqld::mariadb_galera_install'
+
+# Name attribute will be ignored. Choose something that makes sense for you
+mysqld 'galera' do
+  my_cnf { 'bind-address' => '0.0.0.0' }
+end
+```
+
+### password
+
+You can set passwords (incl. root and debian-sys-maint accounts) using this provider.
+By default, the provider uses the created root/debian-sys-maint accounts depending on the system you
+are on.
+
+```ruby
+mysqld_password 'root' do
+  password 'get_from_data_bag_maybe?'
+.
+  # If required, you can specify your own auth-scheme here
+  # auth '-u specialuser -pmypass'
+end
 
 
 # Contributing
