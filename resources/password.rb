@@ -22,5 +22,5 @@ actions        :set
 default_action :set
 
 attribute :user,     kind_of: String, name_attribute: true
-attribute :password, kind_of: String, required: true
+attribute :password, kind_of: String
 attribute :auth,     kind_of: String, default: node['mysqld']['auth']
