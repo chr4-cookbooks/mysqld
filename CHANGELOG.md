@@ -3,6 +3,11 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+1.0.1
+-----
+
+- Do not force presence of `password` attribute
+
 1.0.0
 -----
 
