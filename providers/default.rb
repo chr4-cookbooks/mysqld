@@ -52,7 +52,7 @@ action :create do
     end
 
     provider Chef::Provider::Service::Upstart if platform?("ubuntu") && node["platform_version"].to_f >= 13.10
-    subscribes :restart, 'template[my.cnf]'
+    subscribes :restart, 'template[my.cnf]', :immediately
     action     [:enable, :start]
     not_if     { new_resource.service_name.empty? }
   end
