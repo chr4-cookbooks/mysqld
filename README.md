@@ -172,7 +172,7 @@ are on.
 ```ruby
 mysqld_password 'root' do
   password 'get_from_data_bag_maybe?'
-.
+
   # If required, you can specify your own auth-scheme here
   # auth '-u specialuser -pmypass'
 end
