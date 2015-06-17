@@ -3,6 +3,11 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+1.0.2
+-----
+
+- Restart service immediately when my.cnf is updated
+
 1.0.1
 -----
 
