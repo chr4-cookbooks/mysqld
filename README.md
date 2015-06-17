@@ -176,6 +176,7 @@ mysqld_password 'root' do
   # If required, you can specify your own auth-scheme here
   # auth '-u specialuser -pmypass'
 end
+```
 
 
 # Contributing
