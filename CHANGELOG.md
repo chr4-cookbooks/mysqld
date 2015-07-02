@@ -3,6 +3,11 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+1.0.3
+-----
+
+- Use Upstart provider only on Ubuntu 13.10
+
 1.0.2
 -----
 
