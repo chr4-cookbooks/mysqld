@@ -19,4 +19,4 @@
 #
 
 # Install MariaDB packages
-Array(node['mysql']['mariadb_packages']).each { |pkg| package pkg }
+Array(node['mysqld']['mariadb_packages']).each { |pkg| package pkg }
