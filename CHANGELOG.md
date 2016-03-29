@@ -3,6 +3,11 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+1.0.4
+-----
+
+- Fix attribute typo in `mysqld::mariadb_install` recipe
+
 1.0.3
 -----
 
