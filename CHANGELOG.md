@@ -3,6 +3,11 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+1.0.5
+-----
+
+- Update mariadb repository key
+
 1.0.4
 -----
 
