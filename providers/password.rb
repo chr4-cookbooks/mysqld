@@ -19,9 +19,15 @@
 #
 require 'shellwords'
 
+
 action :set do
   r = execute "Assign mysql password for #{new_resource.user} user" do
-    query = "UPDATE user SET Password = PASSWORD('#{Shellwords.escape(new_resource.password)}') WHERE User = '#{Shellwords.escape(new_resource.user)}'"
+    # The Password column of table mysql.user was removed in MySQL 5.7. The used column is now authentication_string
+    pw_column_name = "Password"
+    if (node["platform"] == "ubuntu" and node["platform_version"].to_f >= 16.04) then pw_column_name = "authentication_string" end
+    log "Password column name: #{pw_column_name}"
+
+    query = "UPDATE user SET #{pw_column_name} = PASSWORD('#{Shellwords.escape(new_resource.password)}') WHERE User = '#{Shellwords.escape(new_resource.user)}'"
     command %(mysql #{Shellwords.escape(new_resource.auth)} mysql -e "#{query}; FLUSH PRIVILEGES;")
     only_if %(mysql #{Shellwords.escape(new_resource.auth)} -e 'SHOW DATABASES;')
   end
@@ -35,3 +41,5 @@ action :set do
     only_if { new_resource.user == 'debian-sys-maint' }
   end
 end
+
+
