@@ -67,16 +67,24 @@ else
   end
 end
 
+if node["platform"] == "ubuntu" and node["platform_version"].to_f >= 16.04
+  default["mysqld"]["my.cnf"]["mysqld"]["key_buffer_size"] = "16M"
+  default["mysqld"]["my.cnf"]["mysqld"]["innodb_additional_mem_pool_size"] = false
+  default["mysqld"]["my.cnf"]["mysqld"]["myisam_recover_options"] = "BACKUP"
+else
+  default["mysqld"]["my.cnf"]["mysqld"]["key_buffer"] = "16M"
+  default["mysqld"]["my.cnf"]["mysqld"]["innodb_additional_mem_pool_size"] = "16M" 
+  default["mysqld"]["my.cnf"]["mysqld"]["myisam_recover"] = "BACKUP"
+end
+
 default['mysqld']['my.cnf']['mysqld']['bind-address'] = '127.0.0.1'
 default['mysqld']['my.cnf']['mysqld']['port'] = 3306
 default['mysqld']['my.cnf']['mysqld']['user'] = 'mysql'
 default['mysqld']['my.cnf']['mysqld']['symbolic-links'] = 0
 default['mysqld']['my.cnf']['mysqld']['skip-external-locking'] = true
-default['mysqld']['my.cnf']['mysqld']['key_buffer'] = '16M'
 default['mysqld']['my.cnf']['mysqld']['max_allowed_packet'] = '16M'
 default['mysqld']['my.cnf']['mysqld']['thread_stack'] = '192K'
 default['mysqld']['my.cnf']['mysqld']['thread_cache_size'] = 8
-default['mysqld']['my.cnf']['mysqld']['myisam-recover'] = 'BACKUP'
 default['mysqld']['my.cnf']['mysqld']['query_cache_limit'] = '1M'
 default['mysqld']['my.cnf']['mysqld']['query_cache_size'] = '16M'
 default['mysqld']['my.cnf']['mysqld']['expire_logs_days'] = 10
@@ -84,7 +92,6 @@ default['mysqld']['my.cnf']['mysqld']['max_binlog_size'] = '100M'
 default['mysqld']['my.cnf']['mysqld']['innodb_file_per_table'] = 1
 default['mysqld']['my.cnf']['mysqld']['innodb_thread_concurrency'] = 0
 default['mysqld']['my.cnf']['mysqld']['innodb_flush_log_at_trx_commit'] = 1
-default['mysqld']['my.cnf']['mysqld']['innodb_additional_mem_pool_size'] = '16M'
 default['mysqld']['my.cnf']['mysqld']['innodb_log_buffer_size'] = '4M'
 
 default['mysqld']['my.cnf']['mysqldump']['quick'] = true
