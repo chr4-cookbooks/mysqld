@@ -73,7 +73,7 @@ default['mysqld']['my.cnf']['mysqld']['tmpdir'] = '/tmp'
 default['mysqld']['my.cnf']['mysqld']['log_error'] = '/var/log/mysql/error.log'
 default['mysqld']['my.cnf']['mysqld']['expire_logs_days'] = 10
 default['mysqld']['my.cnf']['mysqld']['max_binlog_size'] = '100M'
-default['mysqld']['my.cnf']['mysqld']['myisam-recover-options'] = 'BACKUP'
+default['mysqld']['my.cnf']['mysqld']['myisam_recover_options'] = 'BACKUP'
 
 default['mysqld']['my.cnf']['mysqld_safe']['socket'] = '/var/run/mysqld/mysqld.sock'
 default['mysqld']['my.cnf']['mysqld_safe']['nice'] = 0
