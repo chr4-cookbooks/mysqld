@@ -29,7 +29,7 @@ action :set do
 
   # Update debian.cnf if password for debian-sys-maint user is changed
   template '/etc/mysql/debian.cnf' do
-    mode 00600
+    mode 0o600
     source 'debian.cnf.erb'
     variables password: Shellwords.escape(new_resource.password)
     only_if { new_resource.user == 'debian-sys-maint' }

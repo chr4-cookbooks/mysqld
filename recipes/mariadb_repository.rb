@@ -30,7 +30,7 @@ end
 
 # Prioritize MariaDB repository over system packages
 file '/etc/apt/preferences.d/mariadb.pref' do
-  mode 00644
+  mode 0o644
   content <<-EOS
     Package: *
     Pin: origin #{URI.parse(node['mysqld']['repository']['mirror']).host}
