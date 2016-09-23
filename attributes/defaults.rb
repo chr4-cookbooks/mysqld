@@ -23,8 +23,7 @@ default['mysqld']['mysql_packages'] = %w(mysql-server)
 default['mysqld']['mariadb_packages'] = %w(mariadb-server)
 default['mysqld']['mariadb_galera_packages'] = %w(mariadb-galera-server)
 
-# MariaDB repository options (Note: 10.1 has no support for galera (yet))
-default['mysqld']['repository']['version'] = '10.0'
+default['mysqld']['repository']['version'] = '10.1'
 default['mysqld']['repository']['mirror'] = 'http://ftp.hosteurope.de/mirror/mariadb.org/repo'
 
 # Figure out architecture and major platform version for yum repositories
