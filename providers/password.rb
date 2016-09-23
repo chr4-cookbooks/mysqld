@@ -21,7 +21,7 @@ require 'shellwords'
 
 action :set do
   r = execute "Assign mysql password for #{new_resource.user} user" do
-    query = "UPDATE user SET Password = PASSWORD('#{Shellwords.escape(new_resource.password)}') WHERE User = '#{Shellwords.escape(new_resource.user)}'"
+    query = "UPDATE user SET authentication_string = PASSWORD('#{Shellwords.escape(new_resource.password)}') WHERE User = '#{Shellwords.escape(new_resource.user)}'"
     command %(mysql #{Shellwords.escape(new_resource.auth)} mysql -e "#{query}; FLUSH PRIVILEGES;")
     only_if %(mysql #{Shellwords.escape(new_resource.auth)} -e 'SHOW DATABASES;')
   end
