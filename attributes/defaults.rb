@@ -18,6 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# Attribute that defines whether MariaDB or MySQL should be used
+default['mysqld']['use_mariadb'] = true
+
 # Default packages to install
 default['mysqld']['mysql_packages'] = %w(mysql-server)
 default['mysqld']['mariadb_packages'] = %w(mariadb-server)

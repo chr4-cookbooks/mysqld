@@ -113,13 +113,9 @@ node['mysqld']['repository']['version'] # Defaults to '10.1'
 node['mysqld']['repository']['mirror']  # Defaults to HostEurope mirror
 ```
 
-### mariadb\_install
+### install
 
-Install mariadb packages (according to attributes, defaults to `mariadb-server`)
-
-### mysql\_install
-
-Install mysql packages (according to attributes, defaults to `mysql-server`)
+Install mariadb/ mysql packages (according to attributes, defaults to `mariadb-server`)
 
 ### configure
 

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mysqld
-# Recipe:: mariadb_install
+# Recipe:: install
 #
 # Copyright 2014, Chris Aumann
 #
@@ -18,5 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Install MariaDB packages
-Array(node['mysqld']['mariadb_packages']).each { |pkg| package pkg }
+# Install packages
+if node['mysqld']['use_mariadb']
+  Array(node['mysqld']['mariadb_packages']).each { |pkg| package pkg }
+else
+  Array(node['mysqld']['mysql_packages']).each { |pkg| package pkg }
+end
