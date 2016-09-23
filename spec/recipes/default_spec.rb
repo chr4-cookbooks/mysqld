@@ -34,7 +34,7 @@ describe 'mysqld::default' do
   it "should use distribution and version specific attributes" do
     expect(ubuntu_1604.node["mysqld"]["my.cnf"]["mysqld"]["key_buffer_size"]).to eq("16M")
     expect(debian.node["mysqld"]["my.cnf"]["mysqld"]["key_buffer_size"]).to eq("16M")
-   
+
     expect(ubuntu_1604.node["mysqld"]["my.cnf"]["mysqld"]["myisam_recover_options"]).to eq("BACKUP")
     expect(debian.node["mysqld"]["my.cnf"]["mysqld"]["myisam_recover_options"]).to eq("BACKUP")
   end
