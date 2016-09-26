@@ -1,4 +1,4 @@
-# mysqld Cookbook
+# mysqld cookbook
 
 Manage your mysqld servers with this cookbook.
 Unlike the official [opscode mysql cookbook](https://github.com/opscode-cookbooks/mysql),
@@ -13,7 +13,11 @@ Features
 * Defaults to OS settings unless explicitly specified otherwise
 * Supports **all** my.cnf settings
 
-Currently tested on Ubuntu, should work on RHEL and Debian as well.
+Currently tested on Ubuntu 16.04, it should work on other Ubuntu/ Debian systems as well, as long as a compatible database version is used (e.g. `mysql-5.7` or `mariadb-10.1`).
+Other versions might require adaption of some `my.cnf` attributes.
+
+**Note: The support for RHEL was dropped with version `v2.2.0`, pull-requests are welcome!**
+
 [Contributions](https://github.com/chr4/chef-mysqld#contributing) to support other systems are very
 welcome!
 
@@ -42,8 +46,8 @@ following attributes:
 ```ruby
 node['mysqld']['my.cnf_path']
 node['mysqld']['service_name']
-node['mysqld']['mysql_packages']          # When using mysql_install recipe
-node['mysqld']['mariadb_packages']        # When using mariadb_install recipe
+node['mysqld']['mysql_packages']          # When node['mysqld']['use_mariadb'] == false
+node['mysqld']['mariadb_packages']
 node['mysqld']['mariadb_galera_packages'] # When using mariadb_galera_install recipe
 ```
 
@@ -59,7 +63,7 @@ This will expand to the following in your config file (leaving all other setting
 
 ```
 [mysqld]
-  bind-address = 0.0.0.0
+bind-address = 0.0.0.0
 ```
 
 To remove a default option, you can pass `false` or `nil` as the value
@@ -91,20 +95,6 @@ node['mysqld']['root_password'] = 'yourpass'
 
 ### mariadb\_repository
 
-Runs `mariadb_apt_repository` or `mariadb_yum_repository` recipe according to your platform
-
-### mariadb\_apt\_repository
-
-Sets up official MariaDB repository to install packages from.
-Configure it using the following attributes
-
-```ruby
-node['mysqld']['repository']['version'] # Defaults to '10.1'
-node['mysqld']['repository']['mirror']  # Defaults to HostEurope mirror
-```
-
-### mariadb\_yum\_repository
-
 Sets up official MariaDB repository to install packages from.
 Configure it using the following attributes
 
@@ -125,8 +115,8 @@ set.
 
 ### mariadb\_galera\_init
 
-Run `mariadb\_repository` and `mariadb\_galera\_install` recipes, then configure as the `configure`
-recipe would do, but start mariadb with `--wsrep-new-cluster --wsrep\_cluster\_address=gcomm://` to
+Run `mariadb_repository` and `mariadb_galera_install` recipes, then configure as the `configure`
+recipe would do, but start mariadb with `--wsrep-new-cluster --wsrep_cluster_address=gcomm://` to
 initialize a new Galera cluster.
 
 Use this if you want to setup a new Galera cluster, and run it on your first node once:
