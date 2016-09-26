@@ -38,7 +38,7 @@ action :create do
 
   r = template 'my.cnf' do
     path      new_resource.my_cnf_path
-    mode      00644
+    mode      0o644
     cookbook  'mysqld'
     source    'my.cnf.erb'
     variables config: my_cnf
@@ -51,7 +51,6 @@ action :create do
       start_command "service #{new_resource.service_name} start --wsrep-new-cluster --wsrep_cluster_address=gcomm://"
     end
 
-    provider Chef::Provider::Service::Upstart if platform?("ubuntu") && node["platform_version"].to_f == 13.10
     subscribes :restart, 'template[my.cnf]', :immediately
     action     [:enable, :start]
     not_if     { new_resource.service_name.empty? }

@@ -18,6 +18,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Setup yum/apt repository according to platform
-include_recipe 'mysqld::mariadb_apt_repository' if platform_family?('debian')
-include_recipe 'mysqld::mariadb_yum_repository' if platform_family?('rhel')
+require 'uri'
+
+apt_repository 'mariadb' do
+  uri "#{node['mysqld']['repository']['mirror']}/#{node['mysqld']['repository']['version']}/#{node['platform']}"
+  distribution node['lsb']['codename']
+  components %w(main)
+  keyserver 'keyserver.ubuntu.com'
+  key '0xf1656f24c74cd1d8'
+end
+
+# Prioritize MariaDB repository over system packages
+file '/etc/apt/preferences.d/mariadb.pref' do
+  mode 0o644
+  content <<-EOS
+    Package: *
+    Pin: origin #{URI.parse(node['mysqld']['repository']['mirror']).host}
+    Pin-Priority: 1000
+  EOS
+end
