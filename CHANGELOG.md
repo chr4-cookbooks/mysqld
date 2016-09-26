@@ -3,6 +3,20 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+2.0.0
+-----
+
+- Drop support for RHEL, pull-requests apprechiated!
+  In case you are using RHEL, make sure to version-lock this cookbook to `~> 1.0.5` e.g. in your Berksfile
+- Drop support for `mysql-server-5.6` (Ubuntu 14.04). Migrate to MariaDB, or version-lock this cookbook to `~> 1.0.5` e.g. in your Berksfile
+- Bump default mariadb version to `10.1`
+- Adapt default attributes for `mysql-5.7` and `mariadb-10.1`
+- Remove workaround for deprecated Ubuntu 13.10
+- Add `node['mysqld']['use_mariadb']` attribute, default to true
+- Replace `mysqld::install_mariadb` and `mysqld::install_mysql` recipes with `mysqld::install``
+- Rename `mysqld::mariadb_apt_repository` to `mysqld::mariadb_repository`
+- Use `authentication_string` table when changing passwords
+
 1.0.5
 -----
 
