@@ -13,8 +13,14 @@ Features
 * Defaults to OS settings unless explicitly specified otherwise
 * Supports **all** my.cnf settings
 
-Currently tested on Ubuntu 16.04, it should work on other Ubuntu/ Debian systems as well, as long as a compatible database version is used (e.g. `mysql-5.7` or `mariadb-10.1`).
-Other versions might require adaption of some `my.cnf` attributes.
+## Compatibility
+This cookbook is currently tested on Ubuntu 16.04. It should work on other Ubuntu/ Debian systems as well, as long as a compatible database version is used (e.g. `>= mysql-5.7.6` or `>= mariadb-10.1`).
+
+For older database versions, it might be required to adapt some of the `my.cnf` attributes. Furthermore, the `mysqld_password` provider only works with the mentioned compatible databases. In case you need to use `mysqld_password` with older versions (e.g. `< mysql-5.7.6`), you need to version-lock this cookbook to `1.0.5`. This can be achieved by putting the following in your `Berksfile`:
+
+```ruby
+cookbook 'mysqld', '~> 1.0'
+```
 
 **Note: The support for RHEL was dropped with version `v2.2.0`, pull-requests are welcome!**
 
