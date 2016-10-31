@@ -25,7 +25,7 @@ apt_repository 'mariadb' do
   distribution node['lsb']['codename']
   components %w(main)
   keyserver 'keyserver.ubuntu.com'
-  key '0xf1656f24c74cd1d8'
+  key '0xcbcb082a1bb943db'
 end
 
 # Prioritize MariaDB repository over system packages
