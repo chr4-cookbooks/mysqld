@@ -25,7 +25,13 @@ apt_repository 'mariadb' do
   distribution node['lsb']['codename']
   components %w(main)
   keyserver 'keyserver.ubuntu.com'
-  key '0xf1656f24c74cd1d8'
+
+  # Since Ubuntu xenial, the repository uses a new key
+  if node['platform_version'].to_f < 16.04
+    key '0xcbcb082a1bb943db'
+  else
+    key '0xf1656f24c74cd1d8'
+  end
 end
 
 # Prioritize MariaDB repository over system packages
