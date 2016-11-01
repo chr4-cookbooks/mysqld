@@ -3,6 +3,11 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+2.1.0
+-----
+
+- Fix repository keys for older Ubuntu releases
+
 2.0.0
 -----
 
