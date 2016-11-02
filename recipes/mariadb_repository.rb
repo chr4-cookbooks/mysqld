@@ -21,12 +21,10 @@
 require 'uri'
 
 apt_repository 'mariadb' do
-  uri "#{node['mysqld']['repository']['mirror']}/#{node['mysqld']['repository']['version']}/#{node['platform']}"
+  uri "#{node['mysqld']['repository']['mariadb']['mirror']}/#{node['mysqld']['repository']['mariadb']['version']}/#{node['platform']}"
   distribution node['lsb']['codename']
   components %w(main)
   keyserver 'keyserver.ubuntu.com'
-
-  # Since Ubuntu xenial, the repository uses a new key
   if node['platform_version'].to_f < 16.04
     key '0xcbcb082a1bb943db'
   else
@@ -39,7 +37,7 @@ file '/etc/apt/preferences.d/mariadb.pref' do
   mode 0o644
   content <<-EOS
     Package: *
-    Pin: origin #{URI.parse(node['mysqld']['repository']['mirror']).host}
+    Pin: origin #{URI.parse(node['mysqld']['repository']['mariadb']['mirror']).host}
     Pin-Priority: 1000
   EOS
 end

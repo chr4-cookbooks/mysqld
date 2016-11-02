@@ -1,0 +1,47 @@
+---
+driver:
+  name: vagrant
+  require_chef_omnibus: true
+
+platforms:
+  - name: ubuntu-16.04
+    driver_config:
+      box: bento/ubuntu-16.04
+  - name: debian-8
+    driver_config:
+      box: bento/debian-8.6
+
+suites:
+  - name: mariadb-10.1
+    run_list:
+      - recipe[mysqld::mariadb_repository]
+      - recipe[mysqld::default]
+    attributes:
+      mysqld:
+        db_install: 'mariadb'
+        root_password: 'abcdef01234567890'
+        repository:
+          mariadb:
+            version: '10.1'
+  - name: mariadb-10.2
+    run_list:
+      - recipe[mysqld::mariadb_repository]
+      - recipe[mysqld::default]
+    attributes:
+      mysqld:
+        db_install: 'mariadb'
+        root_password: 'abcdef01234567890'
+        repository:
+          mariadb:
+            version: '10.2'
+  - name: percona-5.7
+    run_list:
+      - recipe[mysqld::percona_repository]
+      - recipe[mysqld::default]
+    attributes:
+      mysqld:
+        db_install: 'percona'
+        root_password: 'abcdef01234567890'
+        repository:
+          percona:
+            version: '5.7'
