@@ -52,6 +52,11 @@ if node['mysqld']['use_mariadb']
 
   # This option is not present on mysql-5.7
   default['mysqld']['my.cnf']['mysqld_safe']['skip_log_error'] = true
+
+  # MariaDB and MySQL use different columns for user passwords
+  default['mysqld']['pwd_col'] = 'Password'
+else
+  default['mysqld']['pwd_col'] = 'authentication_string'
 end
 
 default['mysqld']['my.cnf']['mysqld']['user'] = 'mysql'
