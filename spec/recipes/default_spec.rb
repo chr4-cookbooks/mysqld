@@ -8,7 +8,9 @@ describe 'mysqld::default' do
   end
 
   let(:ubuntu_1604) do
-    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
+    runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04')
+    runner.node.override['mysqld']['use_mariadb'] = false
+    runner.converge(described_recipe)
   end
 
   it 'should use the correct mysql server package' do
@@ -37,5 +39,10 @@ describe 'mysqld::default' do
 
     expect(ubuntu_1604.node['mysqld']['my.cnf']['mysqld']['myisam-recover-options']).to eq('BACKUP')
     expect(debian.node['mysqld']['my.cnf']['mysqld']['myisam-recover-options']).to eq('BACKUP')
+  end
+
+  it 'should use the correct password column' do
+    expect(ubuntu_1604.node['mysqld']['pwd_col']).to eq('authentication_string')
+    expect(debian.node['mysqld']['pwd_col']).to eq('Password')
   end
 end
