@@ -8,12 +8,14 @@ describe 'mysqld::default' do
   end
 
   let(:ubuntu_1604) do
-    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
+    runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04')
+    runner.node.override['mysqld']['db_install'] = 'mysql'
+    runner.converge(described_recipe)
   end
 
   it 'should use the correct mysql server package' do
-    expect(debian.node['mysqld']['mysql_packages']).to eq(%w(mysql-server))
-    expect(ubuntu_1604.node['mysqld']['mysql_packages']).to eq(%w(mysql-server))
+    expect(debian.node['mysqld']['mysql']['packages']).to eq(%w(mysql-server))
+    expect(ubuntu_1604.node['mysqld']['mysql']['packages']).to eq(%w(mysql-server))
   end
 
   it 'should use distribution specific my.cnf path' do
@@ -37,5 +39,10 @@ describe 'mysqld::default' do
 
     expect(ubuntu_1604.node['mysqld']['my.cnf']['mysqld']['myisam-recover-options']).to eq('BACKUP')
     expect(debian.node['mysqld']['my.cnf']['mysqld']['myisam-recover-options']).to eq('BACKUP')
+  end
+
+  it 'should use the correct password column' do
+    expect(ubuntu_1604.node['mysqld']['pwd_col']).to eq('authentication_string')
+    expect(debian.node['mysqld']['pwd_col']).to eq('Password')
   end
 end

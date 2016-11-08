@@ -1,8 +1,9 @@
 #
 # Cookbook Name:: mysqld
-# Recipe:: mariadb_galera_install
+# Recipe:: percona_repository
 #
 # Copyright 2014, Chris Aumann
+# Copyright 2016, Adrian Almenar
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,5 +19,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Install MariaDB + Galera packages
-Array(node['mysqld']['mariadb']['galera_packages']).each { |pkg| package pkg }
+apt_repository 'percona' do
+  uri node['mysqld']['repository']['percona']['mirror']
+  distribution node['lsb']['codename']
+  components %w(main)
+  keyserver 'keyserver.ubuntu.com'
+  key '8507EFA5'
+end
+
+# Prioritize Percona repository over system packages
+file '/etc/apt/preferences.d/percona.pref' do
+  mode 0o644
+  content <<-EOS
+    Package: *
+    Pin: release o=Percona Development Team
+    Pin-Priority: 1001
+  EOS
+end

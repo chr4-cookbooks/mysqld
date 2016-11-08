@@ -52,9 +52,9 @@ following attributes:
 ```ruby
 node['mysqld']['my.cnf_path']
 node['mysqld']['service_name']
-node['mysqld']['mysql_packages']          # When node['mysqld']['use_mariadb'] == false
-node['mysqld']['mariadb_packages']
-node['mysqld']['mariadb_galera_packages'] # When using mariadb_galera_install recipe
+node['mysqld']['mysql']['packages']
+node['mysqld']['mariadb']['packages']
+node['mysqld']['mariadb']['galera_packages'] # When using mariadb_galera_install recipe
 ```
 
 The configuration is stored in the ```node['mysqld']['my.cnf']``` hash, and can be adapted like so
@@ -88,6 +88,14 @@ node['mysqld']['root_password'] = 'yourpass'
 ```
 
 
+If you want to install percona/mysql instead of mariadb you can change the following attribute:
+
+```ruby
+node['mysqld']['db_install']
+```
+
+Valid values are `percona`, `mysql` or `mariadb`
+
 
 ## Recipes
 
@@ -105,8 +113,19 @@ Sets up official MariaDB repository to install packages from.
 Configure it using the following attributes
 
 ```ruby
-node['mysqld']['repository']['version'] # Defaults to '10.1'
-node['mysqld']['repository']['mirror']  # Defaults to HostEurope mirror
+node['mysqld']['repository']['mariadb']['version'] # Defaults to '10.1'
+node['mysqld']['repository']['mariadb']['mirror']  # Defaults to HostEurope mirror
+```
+
+### percona\_repository
+
+Sets up official Perconad repository to install packages from. This is called by default
+if you set `node['mysqld']['db_install']` to percona.
+Configure it using the following attributes
+
+```ruby
+node['mysqld']['repository']['percona']['version'] # Defaults to '5.7'
+node['mysqld']['repository']['percona']['mirror']  # Defaults to Percona Main Mirror.
 ```
 
 ### install
