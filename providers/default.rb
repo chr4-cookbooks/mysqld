@@ -20,7 +20,7 @@
 
 action :create do
   # deep_merge configuration with default
-  config = Chef::Mixin::DeepMerge.deep_merge!(node['mysqld']['my.cnf'], new_resource.my_cnf)
+  config = Chef::Mixin::DeepMerge.deep_merge!(node['mysqld']['my.cnf'], new_resource.my_cnf.dup)
 
   # Generate my.cnf from attributes
   my_cnf = ''
