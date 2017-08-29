@@ -3,6 +3,11 @@ mysqld CHANGELOG
 
 This file is used to list changes made in each version of the mysqld cookbook.
 
+2.2.0
+-----
+
+- Duplicate `my.cnf` config settings when merging with defaults, fixes Chef 13 error
+
 2.1.0
 -----
 
